@@ -20,7 +20,7 @@ jobs:
         run: cd typescript-generator
       - name: print the latest commit
         run: git rev-parse HEAD
-      - name: compile the module where the test is, and all modules it depends on
-        run: mvn test-compile -pl typescript-generator-core -am -e
+#      - name: compile the module where the test is, and all modules it depends on
+#        run: mvn test-compile -pl typescript-generator-core -am -e
       - name: run the test to check that it passes
         run: mvn -pl typescript-generator-core test -Dtest=cz.habarta.typescript.generator.TaggedUnionsTest#testTaggedUnionsWithInterfaces
