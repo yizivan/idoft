@@ -14,5 +14,13 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           architecture: x64
-      - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots package
+      - name: clone the test repo
+        run: git clone https://github.com/apache/ignite-3
+      - name: open the folder
+        run: cd ignite-3
+      - name: print the latest commit
+        run: git rev-parse HEAD
+      - name: compile the module where the test is, and all modules it depends on
+        run: mvn test-compile -pl modules/sql-engine -am
+      - name: run the test to check that it passes
+        run: mvn -pl modules/sql-engine test -Dtest=org.apache.ignite.internal.sql.engine.exec.MockedStructuresTest#createTableWithDataStorageOptions
