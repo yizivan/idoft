@@ -21,6 +21,6 @@ jobs:
       - name: print the latest commit
         run: git rev-parse HEAD
       - name: compile the module where the test is, and all modules it depends on
-        run: mvn test-compile -pl modules/configuration -am
+        run: mvn test-compile -pl modules/configuration -am -e
       - name: run the test to check that it passes
         run: mvn -pl org.apache.ignite.internal.configuration.notifications.ConfigurationListenerTest#polymorphicParentFieldChangeNotificationHappens
