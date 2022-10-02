@@ -17,10 +17,8 @@ jobs:
       - name: clone the test repo
         run: git clone https://github.com/vojtechhabarta/typescript-generator
       - name: open the folder
-        run: cd typescript-generator
-      - name: print the latest commit
-        run: git rev-parse HEAD
+        run: cd typescript-generator/typescript-generator-core
 #      - name: compile the module where the test is, and all modules it depends on
 #        run: mvn test-compile -pl typescript-generator-core -am -e
       - name: run the test to check that it passes
-        run: mvn -pl typescript-generator-core test -Dtest=cz.habarta.typescript.generator.TaggedUnionsTest#testTaggedUnionsWithInterfaces
+        run: mvn test -Dtest=cz.habarta.typescript.generator.TaggedUnionsTest#testTaggedUnionsWithInterfaces
