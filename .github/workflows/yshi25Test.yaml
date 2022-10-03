@@ -19,7 +19,15 @@ jobs:
       - name: show all files in the repo
         run: ls
         working-directory: typescript-generator
-      - run: git rev-parse HEAD
-      - run: mvn --batch-mode --update-snapshots package
-      - run: mvn test-compile -pl typescript-generator-core -am -e
-      - run: mvn -pl typescript-generator-core test -Dtest=cz.habarta.typescript.generator.TaggedUnionsTest#testTaggedUnionsWithInterfaces
+      - name: print the latest commit
+        run: git rev-parse HEAD
+        working-directory: typescript-generator
+#      - name: compile the module where the test is, and all modules it depends on
+#        run: mvn --batch-mode --update-snapshots package
+#        working-directory: typescript-generator
+      - name: compile the module where the test is, and all modules it depends on
+        run: mvn test-compile -pl typescript-generator-core -am -e
+        working-directory: typescript-generator
+      - name: run the test to check that it passes
+        run: mvn -pl typescript-generator-core test -Dtest=cz.habarta.typescript.generator.TaggedUnionsTest#testTaggedUnionsWithInterfaces
+        working-directory: typescript-generator
