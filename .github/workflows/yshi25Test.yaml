@@ -14,7 +14,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           architecture: x64
-      - run: git clone https://github.com/alibaba/wasp
+      - run: git clone https://github.com/GoogleCloudPlatform/DataflowTemplates
       - run: git clone https://github.com/TestingResearchIllinois/NonDex
       - run: ls
       - name: Set up JDK 8
@@ -28,10 +28,10 @@ jobs:
         working-directory: NonDex
       - name: show all files in the repo
         run: ls
-        working-directory: wasp
+        working-directory: DataflowTemplates
       - name: print the latest commit
         run: git rev-parse HEAD
-        working-directory: wasp
+        working-directory: DataflowTemplates
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
@@ -40,10 +40,10 @@ jobs:
           architecture: x64
       - name: compile the module where the test is, and all modules it depends on
         run: mvn test-compile -pl . -am -e
-        working-directory: wasp
+        working-directory: DataflowTemplates
       - name: run the test to check that it passes
-        run: mvn -pl . test -Dtest=com.alibaba.wasp.fserver#TestSplitTransactionOnCluster
-        working-directory: wasp
+        run: mvn -pl . test -Dtest=com.google.cloud.teleport.bigtable.CassandraRowMapperFnTest#testListColumn
+        working-directory: DataflowTemplates
       - name: Set up JDK 8
         uses: actions/setup-java@v3
         with:
@@ -51,5 +51,5 @@ jobs:
           distribution: 'adopt'
           architecture: x64
       - name: if the test passes in regular runs, see if it fails with the NonDex tool that reports flaky tests
-        run: mvn -pl . edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=com.alibaba.wasp.fserver#TestSplitTransactionOnCluster -DnondexRuns=100 
-        working-directory: wasp
+        run: mvn -pl . edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=com.google.cloud.teleport.bigtable.CassandraRowMapperFnTest#testListColumn -DnondexRuns=100 
+        working-directory: DataflowTemplates
