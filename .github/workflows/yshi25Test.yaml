@@ -22,12 +22,12 @@ jobs:
       - name: print the latest commit
         run: git rev-parse HEAD
         working-directory: typescript-generator
-#      - name: compile the module where the test is, and all modules it depends on
-#        run: mvn --batch-mode --update-snapshots package
-#        working-directory: typescript-generator
       - name: compile the module where the test is, and all modules it depends on
         run: mvn test-compile -pl typescript-generator-core -am -e
         working-directory: typescript-generator
       - name: run the test to check that it passes
         run: mvn -pl typescript-generator-core test -Dtest=cz.habarta.typescript.generator.TaggedUnionsTest#testTaggedUnionsWithInterfaces
+        working-directory: typescript-generator
+      - name: if the test passes in regular runs, see if it fails with the NonDex tool that reports flaky tests
+        run: mvn -pl typescript-generator-core edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=cz.habarta.typescript.generator.TaggedUnionsTest#testTaggedUnionsWithInterfaces -DnondexRuns=100 
         working-directory: typescript-generator
