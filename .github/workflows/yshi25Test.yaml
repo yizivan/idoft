@@ -18,7 +18,8 @@ jobs:
         run: git clone https://github.com/vojtechhabarta/typescript-generator
       - name: open the folder
         run: cd typescript-generator
-            ls
+      - name: show all files
+        run: ls
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
       - name: print the latest commit
