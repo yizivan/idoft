@@ -17,7 +17,7 @@ jobs:
       - name: clone the test repo
         run: git clone https://github.com/vojtechhabarta/typescript-generator
       - name: open the folder
-        run: cd typescript-generator
+        run: cd typescript-generator\n ls\n
       - name: show all files
         run: ls
       - name: Build with Maven
