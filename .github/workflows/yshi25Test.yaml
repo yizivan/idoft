@@ -18,5 +18,6 @@ jobs:
       - run: cd typescript-generator
       - run: ls typescript-generator
       - run: git rev-parse HEAD
+      - run: mvn --batch-mode --update-snapshots package
       - run: mvn test-compile -pl typescript-generator-core -am -e
       - run: mvn -pl typescript-generator-core test -Dtest=cz.habarta.typescript.generator.TaggedUnionsTest#testTaggedUnionsWithInterfaces
