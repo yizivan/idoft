@@ -15,7 +15,11 @@ jobs:
           distribution: 'adopt'
           architecture: x64
       - run: git clone https://github.com/vojtechhabarta/typescript-generator
-      - run: cd typescript-generator
+      - run: git clone https://github.com/TestingResearchIllinois/NonDex
+      - run: ls
+      - name: maven NonDex
+        run: mvn install
+        working-directory: NonDex
       - name: show all files in the repo
         run: ls
         working-directory: typescript-generator
