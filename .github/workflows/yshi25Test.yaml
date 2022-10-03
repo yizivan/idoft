@@ -20,6 +20,8 @@ jobs:
         run: cd typescript-generator
       - name: print the latest commit
         run: git rev-parse HEAD
+      - name: checkout specific 
+        run : git checkout caef58bfe55a8cd1fc5d7368c19e9ff818a7b7fa
       - name: compile the module where the test is, and all modules it depends on
         run: mvn test-compile -pl typescript-generator-core -am -e
       - name: run the test to check that it passes
