@@ -17,6 +17,12 @@ jobs:
       - run: git clone https://github.com/vojtechhabarta/typescript-generator
       - run: git clone https://github.com/TestingResearchIllinois/NonDex
       - run: ls
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          architecture: x64
       - name: maven NonDex
         run: mvn install
         working-directory: NonDex
