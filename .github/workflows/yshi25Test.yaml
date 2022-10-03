@@ -14,7 +14,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           architecture: x64
-      - run: git clone https://github.com/apache/hudi
+      - run: git clone https://github.com/apache/nifi
       - run: git clone https://github.com/TestingResearchIllinois/NonDex
       - run: ls
       - name: Set up JDK 8
@@ -28,10 +28,10 @@ jobs:
         working-directory: NonDex
       - name: show all files in the repo
         run: ls
-        working-directory: hudi
+        working-directory: nifi
       - name: print the latest commit
         run: git rev-parse HEAD
-        working-directory: hudi
+        working-directory: nifi
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
@@ -39,11 +39,11 @@ jobs:
           distribution: 'adopt'
           architecture: x64
       - name: compile the module where the test is, and all modules it depends on
-        run: mvn test-compile -pl hudi-common -am -e
-        working-directory: hudi
+        run: mvn test-compile -pl nifi-nar-bundles/nifi-hadoop-bundle/nifi-hdfs-processors -am -e
+        working-directory: nifi
       - name: run the test to check that it passes
-        run: mvn -pl hudi-common test -Dtest=org.apache.hudi.common.table.timeline.TestHoodieActiveTimeline#testCreateNewInstantTime
-        working-directory: hudi
+        run: mvn -pl nifi-nar-bundles/nifi-hadoop-bundle/nifi-hdfs-processors test -Dtest=org.apache.nifi.processors.hadoop.TestGetHDFSFileInfo#testRecursiveGroupDirToAttributes
+        working-directory: nifi
       - name: Set up JDK 8
         uses: actions/setup-java@v3
         with:
@@ -51,5 +51,5 @@ jobs:
           distribution: 'adopt'
           architecture: x64
       - name: if the test passes in regular runs, see if it fails with the NonDex tool that reports flaky tests
-        run: mvn -pl hudi-common edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=org.apache.hudi.common.table.timeline.TestHoodieActiveTimeline#testCreateNewInstantTime -DnondexRuns=100 
-        working-directory: hudi
+        run: mvn -pl nifi-nar-bundles/nifi-hadoop-bundle/nifi-hdfs-processors edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=org.apache.nifi.processors.hadoop.TestGetHDFSFileInfo#testRecursiveGroupDirToAttributes -DnondexRuns=100 
+        working-directory: nifi
