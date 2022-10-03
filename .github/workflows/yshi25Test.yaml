@@ -16,7 +16,9 @@ jobs:
           architecture: x64
       - run: git clone https://github.com/vojtechhabarta/typescript-generator
       - run: cd typescript-generator
-      - run: ls
+      - name: show all files in the repo
+        run: ls
+        working-directory: typescript-generator
       - run: git rev-parse HEAD
       - run: mvn --batch-mode --update-snapshots package
       - run: mvn test-compile -pl typescript-generator-core -am -e
