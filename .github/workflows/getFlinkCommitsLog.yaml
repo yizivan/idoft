@@ -1,4 +1,4 @@
-name: SWE437HW5 Test for https://github.com/apache/flink
+name: get flink all commits history
 
 on: [push]
 
